@@ -1,10 +1,12 @@
 # xls2csv-go
 
+
 [![Go Report Card](https://goreportcard.com/badge/github.com/itstudying/xls2csv-go)](https://goreportcard.com/report/github.com/itstudying/xls2csv-go)
 
 [![GoDoc](https://godoc.org/github.com/itstudying/xls2csv-go/xls2string?status.svg)](https://godoc.org/github.com/itstudying/xls2csv-go/xls2string)
 
-此包以cgo的方式调用c的libxls库，用于解析xls和xlsx文件，以及将xls文件转换至csv
+此包以cgo的方式调用c的libxls库，用于解析xls和xlsx文件，以及封装方法将文件内容转成csv格式的字符串
+
 
 #### Install `xls2csv` package
 * xls2csv requires [libxls](http://libxls.sourceforge.net/) to be installed.
