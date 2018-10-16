@@ -1,6 +1,6 @@
 # xls2csv-go
 
-此包以cgo的方式调用c的libxls库，用于解析xls和xlsx文件，以及将xls文件转换至csv
+此包以cgo的方式调用c的libxls库，用于解析xls和xlsx文件，以及封装方法将文件内容转成csv格式的字符串
 
 #### Install `xls2csv` package
 * xls2csv requires [libxls](http://libxls.sourceforge.net/) to be installed.
