@@ -17,7 +17,7 @@ import (
 	"unsafe"
 )
 
-// XLS2CSV converts XLS file to string records.
+// XLS2String converts XLS file to string records.
 //     Params:
 //       xlsFile: XLS file name.
 //       sheetID: sheet ID to be converted. It's 0-based.
