@@ -1,5 +1,9 @@
 # xls2csv-go
 
+[![Go Report Card](https://goreportcard.com/badge/github.com/itstudying/xls2csv-go)](https://goreportcard.com/report/github.com/itstudying/xls2csv-go)
+
+[![GoDoc](https://godoc.org/github.com/itstudying/xls2csv-go/xls2string?status.svg)](https://godoc.org/github.com/itstudying/xls2csv-go/xls2string)
+
 此包以cgo的方式调用c的libxls库，用于解析xls和xlsx文件，以及将xls文件转换至csv
 
 #### Install `xls2csv` package
@@ -26,33 +30,6 @@
             sudo ldconfig
             // Check libxlsreader.so
             sudo ldconfig -p | grep libxls
-
-* Install `xls2csv` package
-
-        CGO_CFLAGS=-I/usr/local/libxls/include CGO_LDFLAGS="-L/usr/local/libxls/lib -l xlsreader" go get github.com/itstudying/xls2csv-go/xls2csv
-
-#### Usage
-
-    func main() {
-    	const f  = "my.xls"
-    	var err error
-    	records := [][]string{}
-    
-    	// Call XLS2CSV() to convert XLS and get all records.
-    	if records, err = xls2csv.XLS2CSV(f, 0); err != nil {
-    		log.Printf("XLS2CSV() error: %v\n", err)
-    		goto end
-    	}
-    
-    	for i, row := range records {
-    		fmt.Printf("%v", row)
-    		if i != len(records)-1 {
-    			fmt.Printf("\n")
-    		}
-    	}
-    
-    end:
-    }
 
 #### Build and Test Your App
   * Do not forget to add `CGO_CFLAGS=-I/usr/local/libxls/include CGO_LDFLAGS="-L/usr/local/libxls/lib -l xlsreader"` before `go build` or `go test`
