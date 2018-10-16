@@ -1,10 +1,6 @@
 # xls2csv-go
 
-[![Build Status](https://travis-ci.org/northbright/xls2csv-go.svg?branch=master)](https://travis-ci.org/northbright/xls2csv-go)
-[![Go Report Card](https://goreportcard.com/badge/github.com/northbright/xls2csv-go)](https://goreportcard.com/report/github.com/northbright/xls2csv-go)
-[![GoDoc](https://godoc.org/github.com/northbright/xls2csv-go/xls2csv?status.svg)](https://godoc.org/github.com/northbright/xls2csv-go/xls2csv)
-
-Package xls2csv is a [Golang](https://golang.org) package which converts XLS file to CSV records. It's based on [libxls](http://libxls.sourceforge.net/) and [xls2csv](https://github.com/northbright/xls2csv).
+此包以cgo的方式调用c的libxls库，用于解析xls和xlsx文件，以及将xls文件转换至csv
 
 #### Install `xls2csv` package
 * xls2csv requires [libxls](http://libxls.sourceforge.net/) to be installed.
@@ -17,7 +13,7 @@ Package xls2csv is a [Golang](https://golang.org) package which converts XLS fil
           ./configure
           make
           sudo make install
-  * Add libxls lib path to `LD_LIBRARY_PATH`
+  * Add libxls lib path to `LD_LIBRARY_PATH` （mac环境下不需要）
     * Create a new `/etc/ld.so.conf.d/libxls.conf`
 
               sudo vi /etc/ld.so.conf.d/libxls.conf
@@ -33,41 +29,35 @@ Package xls2csv is a [Golang](https://golang.org) package which converts XLS fil
 
 * Install `xls2csv` package
 
-        CGO_CFLAGS=-I/usr/local/libxls/include CGO_LDFLAGS="-L/usr/local/libxls/lib -l xlsreader" go get github.com/northbright/xls2csv-go/xls2csv
+        CGO_CFLAGS=-I/usr/local/libxls/include CGO_LDFLAGS="-L/usr/local/libxls/lib -l xlsreader" go get github.com/itstudying/xls2csv-go/xls2csv
 
 #### Usage
 
-    package main
-
-    import (
-        "fmt"
-
-        "github.com/northbright/xls2csv-go/xls2csv"
-    )
-
     func main() {
-        var err error
-
-        f := "/home/xx/my.xls"
-        sheetId := 0
-        records := [][]string{}
-
-        // Call XLS2CSV() to convert XLS and get all records.
-        if records, err = xls2csv.XLS2CSV(f, sheetId); err != nil {
-            fmt.Printf("err: %v\n", err)
-            return
-        }
-
-        fmt.Printf("records: %v\n", records)
+    	const f  = "my.xls"
+    	var err error
+    	records := [][]string{}
+    
+    	// Call XLS2CSV() to convert XLS and get all records.
+    	if records, err = xls2csv.XLS2CSV(f, 0); err != nil {
+    		log.Printf("XLS2CSV() error: %v\n", err)
+    		goto end
+    	}
+    
+    	for i, row := range records {
+    		fmt.Printf("%v", row)
+    		if i != len(records)-1 {
+    			fmt.Printf("\n")
+    		}
+    	}
+    
+    end:
     }
 
 #### Build and Test Your App
   * Do not forget to add `CGO_CFLAGS=-I/usr/local/libxls/include CGO_LDFLAGS="-L/usr/local/libxls/lib -l xlsreader"` before `go build` or `go test`
 
-          CGO_CFLAGS=-I/usr/local/libxls/include CGO_LDFLAGS="-L/usr/local/libxls/lib -l xlsreader" go build
+          go build
+          
+  > 在编译时需要加上libxls库中头文件的检索目录CGO_CFLAGS，链接运行时已经将darwin和linux环境下的依赖文件加入至项目中，因此不再需要CGO_LDFLAGS，见/xls2csv.go:3
 
-#### Documentation
-* [API References](https://godoc.org/github.com/northbright/xls2csv-go/xls2csv)
-
-#### License
-* [MIT License](LICENSE)

@@ -1,6 +1,9 @@
 package xls2csv
 
 /*
+#cgo CFLAGS: -I/usr/local/libxls/include
+#cgo darwin LDFLAGS: -L${SRCDIR}/libxls_darwin/lib -l xlsreader
+#cgo linux LDFLAGS: -L${SRCDIR}/libxls_linux/lib -l xlsreader
 #include <stdio.h>
 #include <stdlib.h>
 #include <libxls/xls.h>
