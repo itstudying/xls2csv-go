@@ -1,4 +1,4 @@
-package xls2csv
+package xls2string
 
 /*
 #cgo darwin CFLAGS: -I${SRCDIR}/libxls_darwin/include
@@ -17,6 +17,12 @@ import (
 	"unsafe"
 )
 
+// XLS2CSV converts XLS file to string records.
+//     Params:
+//       xlsFile: XLS file name.
+//       sheetID: sheet ID to be converted. It's 0-based.
+//     Return:
+//       records: string records
 func XLS2String(xlsFile string, sheetID int) (records string, err error) {
 	var buf *C.char
 
@@ -29,7 +35,7 @@ func XLS2String(xlsFile string, sheetID int) (records string, err error) {
 	buf = C.xls2csv(f, id)
 	if buf == nil {
 		err = fmt.Errorf("xls2csv() error")
-		return records, nil
+		return records, err
 	}
 
 	// Free memory block after use.

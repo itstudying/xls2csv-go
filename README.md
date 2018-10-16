@@ -59,5 +59,4 @@
 
           go build
           
-  > 在编译时需要加上libxls库中头文件的检索目录CGO_CFLAGS，链接运行时已经将darwin和linux环境下的依赖文件加入至项目中，因此不再需要CGO_LDFLAGS，见/xls2csv.go:3
 
